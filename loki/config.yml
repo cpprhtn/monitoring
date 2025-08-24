@@ -1,0 +1,53 @@
+# 이 파일을 사용하진 않음. 도커 내리면 save 안되도록 함.
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+
+common:
+  path_prefix: /data
+  storage:
+    filesystem:
+      chunks_directory: /data/chunks
+      rules_directory: /data/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2024-01-01
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+compactor:
+  working_directory: /data/compactor
+  shared_store: filesystem
+
+limits_config:
+  retention_period: 168h
+  ingestion_rate_mb: 16
+  ingestion_burst_size_mb: 32
+
+chunk_store_config:
+  max_look_back_period: 168h
+
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 168h
+
+ruler:
+  alertmanager_url: http://localhost:9093
+  storage:
+    type: local
+    local:
+      directory: /data/rules
+  rule_path: /tmp/loki-rules
+  ring:
+    kvstore:
+      store: inmemory

@@ -1,7 +1,5 @@
 # monitoring
 
-프로젝트 개요
-
 로그 + 메트릭 통합 모니터링을 위한 Docker 기반 프로젝트.
 
 주요 구성 요소
@@ -61,10 +59,5 @@ flowchart LR
     L --> G
     P --> G
 
-    classDef app fill=#f8d7da,stroke=#b71c1c,stroke-width=1px
-    classDef default fill=#d9edf7,stroke=#31708f,stroke-width=1px
-
 ```
 Reverse Proxy (NGINX) ──▶ Grafana (:3000)
-
-[grafana.cpprhtn.com](https://grafana.cpprhtn.com)
